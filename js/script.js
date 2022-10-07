@@ -92,7 +92,13 @@ const resultado=()=>{
         list.push(v+' = '+mostrar.textContent)
         final=0
         historial()
-        estado = false
+
+        if(eval(v)%1==0){
+            estado = false
+        }else{
+            estado = true;
+        }
+        
     }else{
         alert('Debe completar la operación');
     }
