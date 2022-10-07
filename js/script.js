@@ -2,13 +2,27 @@
 let mostrar=document.getElementById("Resultado")
 let list=[]
 let final=0
+let estado = false
+
 
 const num=(num)=>{
-    mostrar.textContent = mostrar.textContent + num
-    validacion()
+    if (num === '.') {
+        if (estado == true) {
+            return
+        } else {
+            estado = true;
+            mostrar.textContent = mostrar.textContent + num
+            validacion()
+        }
+    }else{
+        mostrar.textContent = mostrar.textContent + num
+        validacion()
+    }
 }
 
+
 const operation=(ope)=>{
+    estado = false
     mostrar.textContent = mostrar.textContent + ope
     validacion()
     
@@ -28,7 +42,6 @@ const validacion=(sig)=>{
     status=switchV(Ultimo)
     status2=switchV(Penultimo)
     status3=switchV(Primero)
-
 
     if(sig!='='){ //Validamos que tenga un signo ingresado
         if((mostrar.textContent.indexOf("+")!=-1) || (mostrar.textContent.indexOf("-")!=-1) || (mostrar.textContent.indexOf("*")!=-1)  || (mostrar.textContent.indexOf("/")!=-1)){
@@ -78,14 +91,22 @@ const resultado=()=>{
         mostrar.textContent=eval(v)
         list.push(v+' = '+mostrar.textContent)
         final=0
+        historial()
+        estado = false
     }else{
         alert('Debe completar la operación');
     }
 }
 
-const limpiar=(t)=>{
-    mostrar.textContent =""
-    final=0
+const limpiar=(tipo)=>{
+    estado = false
+    if(tipo==1){
+        mostrar.textContent =""
+        final=0
+    }else{
+        list=[]
+        historial()
+    }
 }
 
 const historial=()=>{
